@@ -43,7 +43,7 @@ export default function Home({posts}: HomeProps) {
 
       <main className={styles.container}>
         {posts.map(post => (
-          <Link href={`/posts/${post.slug}`}>
+          <Link href={`/post/${post.slug}`}>
             <a key={post.slug}>
               <h1 className={styles.title}>{post.title}</h1>
               <h4 className={styles.subtitle}>{post.subtitle}</h4>

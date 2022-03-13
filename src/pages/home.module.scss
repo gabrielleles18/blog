@@ -1,7 +1,18 @@
 .container {
-  width: 100%;
+  width: calc(100% - 2.5rem);
   max-width: 760px;
-  margin: 1.25rem auto;
+  margin: 1.25rem auto 3rem auto;
+  gap: 3.125rem;
+  display: flex;
+  flex-direction: column;
+
+  a {
+    transition: color .2s;
+  }
+
+  a:hover h1 {
+    color: var(--highlight);
+  }
 
   .title {
     font-size: 1.75rem;
@@ -11,19 +22,19 @@
     letter-spacing: -0.5px;
   }
 
-  .subtitle{
+  .subtitle {
     font-size: 1.125rem;
     line-height: 1.375rem;
     font-weight: 400;
-    margin: 0.625rem  0 1.5625rem 0;
+    margin: 0.625rem 0 0.9375rem 0;
   }
 
-  .dateAuthor{
+  .dateAuthor {
     display: flex;
     gap: 1.5625rem;
   }
 
-  .info{
+  .info {
     display: flex;
     gap: 0.5rem;
   }
