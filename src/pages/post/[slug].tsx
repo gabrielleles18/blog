@@ -8,7 +8,6 @@ import Header from "../../components/Header";
 
 import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
-import Link from "next/link";
 
 interface Post {
   first_publication_date: string | null;
@@ -32,7 +31,18 @@ interface PostProps {
 }
 
 export default function Post({post}: PostProps) {
-  console.log(post.data.content);
+  const readingTime = post.data.content.reduce((time, obj) => {
+    const { body } = obj;
+
+    const numWords = body.reduce((val, obj2) => {
+      return val + obj2.text.split(' ').length;
+    }, 0);
+
+    return time + numWords;
+  }, 0);
+
+  console.log(readingTime);
+
   return (
     <>
       <Header/>
@@ -41,17 +51,17 @@ export default function Post({post}: PostProps) {
         <div className={styles.content}>
           <h1>{post.data.title}</h1>
           <div className={styles.details}>
-            <div className={styles.info}>
+            <div className={commonStyles.info}>
               <FiCalendar size={20} color="#BBBBBB"/>
               <p>{post.first_publication_date}</p>
             </div>
-            <div className={styles.info}>
+            <div className={commonStyles.info}>
               <FiUser size={20} color="#BBBBBB"/>
               <p>{post.data.author}</p>
             </div>
-            <div className={styles.info}>
+            <div className={commonStyles.info}>
               <FiClock size={20} color="#BBBBBB"/>
-              <p>3min</p>
+              <p>{Math.round(readingTime / 200)} min</p>
             </div>
           </div>
 
@@ -59,7 +69,7 @@ export default function Post({post}: PostProps) {
             <>
               <h2>{post.heading}</h2>
               <div
-                dangerouslySetInnerHTML={{__html: post.body}}
+                dangerouslySetInnerHTML={{__html: RichText.asHtml(post.body)}}
               />
             </>
           ))}
@@ -96,7 +106,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       content: response.data.content.map(content => {
         return {
           heading: RichText.asText(content.heading),
-          body: RichText.asHtml([...content.body]),
+          body: [...content.body],
         };
       }),
     },

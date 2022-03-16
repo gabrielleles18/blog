@@ -1,8 +1,6 @@
-import {GetStaticProps} from 'next';
 import {RichText} from "prismic-dom";
 import Prismic from "@prismicio/client";
 import {format} from 'date-fns';
-import ptBR from 'date-fns/locale/pt-BR';
 import Head from "next/head";
 import Link from 'next/link';
 import { FiUser, FiCalendar } from 'react-icons/fi';
@@ -48,11 +46,11 @@ export default function Home({posts}: HomeProps) {
               <h1 className={styles.title}>{post.title}</h1>
               <h4 className={styles.subtitle}>{post.subtitle}</h4>
               <div className={styles.dateAuthor}>
-                <div className={styles.info}>
+                <div className={commonStyles.info}>
                   <FiCalendar size={20} color="#BBBBBB" />
                   <p>{post.updatedAt}</p>
                 </div>
-                <div className={styles.info}>
+                <div className={commonStyles.info}>
                   <FiUser size={20} color="#BBBBBB" />
                   <p>{post.author}</p>
                 </div>
